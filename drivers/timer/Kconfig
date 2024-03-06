@@ -1,0 +1,16 @@
+# Copyright (c) 2024 GP Orcullo
+# SPDX-License-Identifier: Apache-2.0
+
+config SOPHGO_CV1800B_CLINT
+	bool "Sophgo CV1800B Machine Timer"
+	default y
+	depends on DT_HAS_SOPHGO_CV1800B_CLINT_ENABLED
+	select TICKLESS_CAPABLE
+	select TIMER_HAS_64BIT_CYCLE_COUNTER
+
+if SOPHGO_CV1800B_CLINT
+
+config RISCV_MACHINE_TIMER_SYSTEM_CLOCK_DIVIDER
+    default 0
+
+endif

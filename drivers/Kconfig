@@ -1,0 +1,6 @@
+# Copyright (c) 2024 GP Orcullo
+# SPDX-License-Identifier: Apache-2.0
+
+menu "Drivers"
+rsource "timer/Kconfig"
+endmenu
