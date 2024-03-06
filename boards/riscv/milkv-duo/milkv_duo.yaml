@@ -1,0 +1,15 @@
+identifier: milkv_duo
+name: Milk-V Duo board with 64Mb ram
+type: mcu
+simulation: qemu
+arch: riscv64
+ram: 64
+toolchain:
+  - zephyr
+supported:
+  - netif
+testing:
+  default: true
+  ignore_tags:
+    - net
+    - bluetooth

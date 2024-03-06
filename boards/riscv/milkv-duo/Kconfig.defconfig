@@ -1,0 +1,6 @@
+# Copyright (c) 2024 GP Orcullo
+# SPDX-License-Identifier: Apache-2.0
+
+config BOARD
+	default "milkv_duo"
+    depends on BOARD_MILKV_DUO

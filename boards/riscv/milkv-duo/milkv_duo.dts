@@ -1,0 +1,153 @@
+/* Copyright (c) 2024 GP Orcullo */
+/* SPDX-License-Identifier: Apache-2.0 */
+
+/dts-v1/;
+
+#include <skeleton.dtsi>
+
+/ {
+	#address-cells = <1>;
+	#size-cells = <1>;
+
+	cpus {
+		#address-cells = <1>;
+		#size-cells = <0>;
+		cpu0: cpu@0 {
+			device_type = "cpu";
+			compatible = "riscv";
+			riscv,isa = "rv64ima_zicsr_zifencei";
+			reg = <0>;
+			clock-frequency = <25000000>;
+
+			cpu0_intc: interrupt-controller {
+				compatible = "riscv,cpu-intc";
+				#address-cells = <0>;
+				#interrupt-cells = <1>;
+				interrupt-controller;
+			};
+		};
+	};
+
+	ram0: memory@83f40000 {
+		device_type = "memory";
+		reg = < 0x83f40000 0xc0000 >;
+	};
+
+	soc {
+		#address-cells = <1>;
+		#size-cells = <1>;
+		compatible = "simple-bus";
+		ranges;
+
+		plic: interrupt-controller@70000000 {
+			riscv,max-priority = <7>;
+			riscv,ndev = <61>;
+			reg = <0x70000000 0x4000000>;
+			interrupts-extended = <&cpu0_intc 11>, <&cpu0_intc 9>;
+			interrupt-controller;
+			compatible = "sifive,plic-1.0.0";
+			#address-cells = <0>;
+			#interrupt-cells = <2>;
+		};
+
+		clint: timer@74000000 {
+			compatible = "sophgo,cv1800b-clint";
+			interrupts-extended = <&cpu0_intc 3 &cpu0_intc 7>;
+			reg = <0x74000000 0x10000>;
+		};
+
+		gpio0: gpio@3020000 {
+			compatible = "snps,designware-gpio";
+			reg = <0x03020000 0x1000>;
+			ngpios = <32>;
+			interrupt-parent = <&cpu0_intc>;
+			gpio-controller;
+			#gpio-cells = <2>;
+		};
+
+		gpio1: gpio@3021000 {
+			compatible = "snps,designware-gpio";
+			reg = <0x03021000 0x1000>;
+			ngpios = <32>;
+			interrupt-parent = <&cpu0_intc>;
+			gpio-controller;
+			#gpio-cells = <2>;
+		};
+
+		gpio2: gpio@3022000 {
+			compatible = "snps,designware-gpio";
+			reg = <0x03022000 0x1000>;
+			ngpios = <32>;
+			interrupt-parent = <&cpu0_intc>;
+			gpio-controller;
+			#gpio-cells = <2>;
+		};
+
+		gpio3: gpio@3023000 {
+			compatible = "snps,designware-gpio";
+			reg = <0x03023000 0x1000>;
+			ngpios = <32>;
+			interrupt-parent = <&cpu0_intc>;
+			gpio-controller;
+			#gpio-cells = <2>;
+		};
+
+		gpio4: gpio@5021000 {
+			compatible = "snps,designware-gpio";
+			reg = <0x05021000 0x1000>;
+			ngpios = <32>;
+			interrupt-parent = <&cpu0_intc>;
+			gpio-controller;
+			#gpio-cells = <2>;
+		};
+
+		uart0: serial@4140000 {
+                        compatible = "ns16550";
+			reg = <0x04140000 0x100>;
+                        clock-frequency = <25000000>;
+                        interrupt-parent = <&cpu0_intc>;
+                        reg-shift = <2>;
+			status = "disabled";
+		};
+
+		uart1: serial@4150000 {
+                        compatible = "ns16550";
+			reg = <0x04150000 0x100>;
+                        clock-frequency = <25000000>;
+                        interrupt-parent = <&cpu0_intc>;
+                        reg-shift = <2>;
+			status = "disabled";
+		};
+
+		uart2: serial@4160000 {
+                        compatible = "ns16550";
+			reg = <0x04160000 0x100>;
+                        clock-frequency = <25000000>;
+                        interrupt-parent = <&cpu0_intc>;
+                        reg-shift = <2>;
+			status = "disabled";
+		};
+
+		uart3: serial@4170000 {
+                        compatible = "ns16550";
+			reg = <0x04170000 0x100>;
+                        clock-frequency = <25000000>;
+                        interrupt-parent = <&cpu0_intc>;
+                        reg-shift = <2>;
+			status = "disabled";
+		};
+
+		uart4: serial@41c0000 {
+                        compatible = "ns16550";
+			reg = <0x041c0000 0x100>;
+                        clock-frequency = <25000000>;
+                        interrupt-parent = <&cpu0_intc>;
+                        reg-shift = <2>;
+			status = "disabled";
+		};
+	};
+
+	chosen {
+		zephyr,sram = &ram0;
+	};
+};
