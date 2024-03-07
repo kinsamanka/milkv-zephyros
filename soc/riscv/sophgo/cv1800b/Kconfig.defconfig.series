@@ -13,7 +13,7 @@ config RISCV_SOC_INTERRUPT_INIT
 	default y
 
 config RISCV_GP
-	default n
+	default y
 
 config NUM_IRQS
 	default 64
