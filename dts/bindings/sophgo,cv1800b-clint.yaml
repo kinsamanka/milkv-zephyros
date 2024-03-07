@@ -6,3 +6,12 @@ description: Sophgo CV1800B RISC-V Core-Local Interruptor.
 compatible: "sophgo,cv1800b-clint"
 
 include: sifive,clint0.yaml
+
+properties:
+  use-csr:
+    type: boolean
+    description: Use CSR to access timer value.
+
+  use-32bit:
+    type: boolean
+    description: Use multiword to access registers.

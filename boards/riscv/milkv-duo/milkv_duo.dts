@@ -54,6 +54,8 @@
 			compatible = "sophgo,cv1800b-clint";
 			interrupts-extended = <&cpu0_intc 3 &cpu0_intc 7>;
 			reg = <0x74000000 0x10000>;
+			use-csr;
+			use-32bit;
 		};
 
 		gpio0: gpio@3020000 {

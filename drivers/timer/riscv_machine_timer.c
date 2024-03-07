@@ -1,6 +1,5 @@
 /*
  * Copyright (c) 2018-2023 Intel Corporation
- * Copyright (c) 2024 GP Orcullo
  *
  * SPDX-License-Identifier: Apache-2.0
  */
@@ -76,8 +75,14 @@
 #elif DT_HAS_COMPAT_STATUS_OKAY(sophgo_cv1800b_clint)
 #define DT_DRV_COMPAT sophgo_cv1800b_clint
 
-#define MTIME_USE_RDTIME
-#define MTIMECMP_USE_32BIT
+#if DT_INST_PROP(0, use_32bit)
+#undef CONFIG_64BIT
+#endif
+#if DT_INST_PROP(0, use_csr)
+#define MTIME_USE_CSR
+#else
+#define MTIME_REG	(DT_INST_REG_ADDR(0) + 0xbff8U)
+#endif
 #define MTIMECMP_REG	(DT_INST_REG_ADDR(0) + 0x4000U)
 #define TIMER_IRQN	DT_INST_IRQ_BY_IDX(0, 1, irq)
 #endif
@@ -104,7 +109,7 @@ static uintptr_t get_hart_mtimecmp(void)
 
 static void set_mtimecmp(uint64_t time)
 {
-#if defined(CONFIG_64BIT) && ! defined(MTIMECMP_USE_32BIT)
+#ifdef CONFIG_64BIT
 	*(volatile uint64_t *)get_hart_mtimecmp() = time;
 #else
 	volatile uint32_t *r = (uint32_t *)get_hart_mtimecmp();
@@ -131,16 +136,10 @@ static void set_divider(void)
 
 static uint64_t mtime(void)
 {
-#ifdef CONFIG_64BIT
-#ifdef MTIME_USE_RDTIME
-    uint64_t result;
-    __asm__ __volatile__(
-        "rdtime %0"
-        : "=r"(result));
-    return (result);
-#else
-    return *(volatile uint64_t *)MTIME_REG;
-#endif
+#ifdef MTIME_USE_CSR
+	return csr_read(time);
+#elif defined(CONFIG_64BIT)
+	return *(volatile uint64_t *)MTIME_REG;
 #else
 	volatile uint32_t *r = (uint32_t *)MTIME_REG;
 	uint32_t lo, hi;
