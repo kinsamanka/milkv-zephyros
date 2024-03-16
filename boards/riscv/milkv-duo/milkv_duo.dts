@@ -41,9 +41,9 @@
 
 		plic: interrupt-controller@70000000 {
 			riscv,max-priority = <7>;
-			riscv,ndev = <61>;
+			riscv,ndev = <64>;
 			reg = <0x70000000 0x4000000>;
-			interrupts-extended = <&cpu0_intc 11>, <&cpu0_intc 9>;
+			interrupts-extended = <&cpu0_intc 11>;
 			interrupt-controller;
 			compatible = "sifive,plic-1.0.0";
 			#address-cells = <0>;
@@ -62,89 +62,98 @@
 			compatible = "snps,designware-gpio";
 			reg = <0x03020000 0x1000>;
 			ngpios = <32>;
-			interrupt-parent = <&cpu0_intc>;
+			interrupts = <41 1>;
+			interrupt-parent = <&plic>;
 			gpio-controller;
 			#gpio-cells = <2>;
+			status = "disabled";
 		};
 
 		gpio1: gpio@3021000 {
 			compatible = "snps,designware-gpio";
 			reg = <0x03021000 0x1000>;
 			ngpios = <32>;
-			interrupt-parent = <&cpu0_intc>;
+			interrupts = <42 1>;
+			interrupt-parent = <&plic>;
 			gpio-controller;
 			#gpio-cells = <2>;
+			status = "disabled";
 		};
 
 		gpio2: gpio@3022000 {
 			compatible = "snps,designware-gpio";
 			reg = <0x03022000 0x1000>;
 			ngpios = <32>;
-			interrupt-parent = <&cpu0_intc>;
+			interrupts = <43 1>;
+			interrupt-parent = <&plic>;
 			gpio-controller;
 			#gpio-cells = <2>;
+			status = "disabled";
 		};
 
 		gpio3: gpio@3023000 {
 			compatible = "snps,designware-gpio";
 			reg = <0x03023000 0x1000>;
 			ngpios = <32>;
-			interrupt-parent = <&cpu0_intc>;
+			interrupts = <44 1>;
+			interrupt-parent = <&plic>;
 			gpio-controller;
 			#gpio-cells = <2>;
+			status = "disabled";
 		};
 
 		gpio4: gpio@5021000 {
 			compatible = "snps,designware-gpio";
 			reg = <0x05021000 0x1000>;
 			ngpios = <32>;
-			interrupt-parent = <&cpu0_intc>;
+			interrupts = <48 1>;
+			interrupt-parent = <&plic>;
 			gpio-controller;
 			#gpio-cells = <2>;
+			status = "disabled";
 		};
 
 		uart0: serial@4140000 {
-                        compatible = "ns16550";
+			compatible = "ns16550";
 			reg = <0x04140000 0x100>;
-                        clock-frequency = <25000000>;
-                        interrupt-parent = <&cpu0_intc>;
-                        reg-shift = <2>;
+			clock-frequency = <25000000>;
+			interrupts = <30 1>;
+			interrupt-parent = <&plic>;
+			reg-shift = <2>;
 			status = "disabled";
 		};
 
 		uart1: serial@4150000 {
-                        compatible = "ns16550";
+			compatible = "ns16550";
 			reg = <0x04150000 0x100>;
-                        clock-frequency = <25000000>;
-                        interrupt-parent = <&cpu0_intc>;
-                        reg-shift = <2>;
+			clock-frequency = <25000000>;
+			interrupts = <31 1>;
+			interrupt-parent = <&plic>;
+			reg-shift = <2>;
 			status = "disabled";
 		};
 
 		uart2: serial@4160000 {
-                        compatible = "ns16550";
+			compatible = "ns16550";
 			reg = <0x04160000 0x100>;
-                        clock-frequency = <25000000>;
-                        interrupt-parent = <&cpu0_intc>;
-                        reg-shift = <2>;
+			clock-frequency = <25000000>;
+			reg-shift = <2>;
 			status = "disabled";
 		};
 
 		uart3: serial@4170000 {
-                        compatible = "ns16550";
+			compatible = "ns16550";
 			reg = <0x04170000 0x100>;
-                        clock-frequency = <25000000>;
-                        interrupt-parent = <&cpu0_intc>;
-                        reg-shift = <2>;
+			clock-frequency = <25000000>;
+			reg-shift = <2>;
 			status = "disabled";
 		};
 
 		uart4: serial@41c0000 {
-                        compatible = "ns16550";
+			compatible = "ns16550";
 			reg = <0x041c0000 0x100>;
-                        clock-frequency = <25000000>;
-                        interrupt-parent = <&cpu0_intc>;
-                        reg-shift = <2>;
+			clock-frequency = <25000000>;
+			reg-shift = <2>;
 			status = "disabled";
 		};
 	};
