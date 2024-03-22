@@ -30,7 +30,7 @@
 
 	ram0: memory@83f40000 {
 		device_type = "memory";
-		reg = < 0x83f40000 0xc0000 >;
+		reg = < 0x83f40000 0xb8000 >;
 	};
 
 	soc {
@@ -154,6 +154,14 @@
 			reg = <0x041c0000 0x100>;
 			clock-frequency = <25000000>;
 			reg-shift = <2>;
+			status = "disabled";
+		};
+
+		ipm:ipm@1900000 {
+			compatible = "sophgo,cv180x-ipm";
+			reg = <0x1900000 0x1000>;
+			interrupts = <61 1>;
+			interrupt-parent = <&plic>;
 			status = "disabled";
 		};
 	};

@@ -3,4 +3,5 @@
 
 menu "Drivers"
 rsource "timer/Kconfig"
+rsource "ipm/Kconfig"
 endmenu

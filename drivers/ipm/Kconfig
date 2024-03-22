@@ -1,0 +1,12 @@
+# SPDX-License-Identifier: Apache-2.0
+
+if IPM
+
+config SOPHGO_CV180X_IPM
+	bool "Sophgo CV180X IPM driver"
+	default y
+	depends on DT_HAS_SOPHGO_CV180X_IPM_ENABLED
+	help
+	  Interprocessor mailbox  driver for Sophgo CV180x.
+
+endif #IPM
