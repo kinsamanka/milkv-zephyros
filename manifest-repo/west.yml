@@ -6,5 +6,9 @@ manifest:
     - name: zephyr
       remote: zephyrproject-rtos
       revision: v3.6.0
+      import:
+        name-allowlist:
+          - open-amp
+          - libmetal
   self:
     path: manifest-repo

@@ -1,7 +1,6 @@
 ### Requirements
 - Zephyr development environment: Follow [Getting Started Guide](https://docs.zephyrproject.org/3.6.0/develop/getting_started/index.html)
-- Milk-V Duo: Install the latest [Arduino image](https://github.com/milkv-duo/duo-buildroot-sdk/releases)
-  - Make sure the led blinking task is not enabled
+- Milk-V Duo: Install the latest [image](https://github.com/kinsamanka/milkv-zephyros/releases/download/v0.1.1-alpha/milkv-duo_sdcard.img.gz)
 
 ### Steps
 - Clone repo
@@ -13,7 +12,7 @@
   cd milkv-zephyros
   west init -l manifest-repo
   west update -o=--depth=1
-  cmake -B build blinky
+  cmake -B build <blinky or openamp>
   make -C build
   ```
 - Install firmware
@@ -28,6 +27,5 @@
   echo start > /sys/class/remoteproc/remoteproc0/state
   ```
 
-### Results
-- UART4 Tx (pin 4) should be active
-- Blue led should be blinking
+### Note
+- The OpenAMP sample needs an updated `remoteproc` and `mailbox` drivers. The sources can be found [here](https://github.com/kinsamanka/milkv-linux/tree/cvitek-v5.10.199)
