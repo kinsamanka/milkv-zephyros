@@ -11,7 +11,7 @@
   ```
   cd milkv-zephyros
   west init -l manifest-repo
-  west update -o=--depth=1
+  west update
   cmake -B build <blinky or openamp>
   make -C build
   ```
